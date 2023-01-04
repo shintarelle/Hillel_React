@@ -4,7 +4,6 @@ class Folder extends Component {
 
   constructor(props){
     super(props);
-    // console.log('props in Folder', this.props.expandedFolders);
 
     this.state = {isOpen: this.isOpenFolder()};
   }
@@ -34,7 +33,6 @@ class Folder extends Component {
                 </ul>
             ) : null
         }
-
     </>
     );
   }

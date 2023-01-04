@@ -2,7 +2,21 @@ import Folder from "./components/Folder";
 import File from "./components/File";
 import { FOLDER_TYPE } from "./Constants";
 
-export const renderCurrentType = (data, expandedFolders = []) => data.map(i => i.type === FOLDER_TYPE ? <Folder name={i.name} children={i.children} expandedFolders={expandedFolders} /> : <File name={i.name} mime={i.mime} />)
+export const renderCurrentType = (data, expandedFolders = []) =>
+  data.map(i =>
+    i.type === FOLDER_TYPE ? (
+      expandedFolders.some(f => f.includes(i.name)) ? (
+      <Folder key={JSON.stringify({ ...i, expandedFolders: expandedFolders })}
+        name={i.name} children={i.children}
+        expandedFolders={expandedFolders}
+        />) : null
+    ) : (
+      expandedFolders.some(f => f.includes(i.name)) ? (
+        <File key={JSON.stringify({ ...i, expandedFolders: expandedFolders })}
+          name={i.name} mime={i.mime}
+        />) : null
+    )
+  );
 
 export const treeToMap = (data = [], path = '') => {
     let result = {};
@@ -19,40 +33,3 @@ export const treeToMap = (data = [], path = '') => {
 
     return result;
 }
-
-export const splitPath = (arr) => {
-  // let result = [];
-  let arrayPath = [];
-  for (let i = 0; i < arr.length; i++) {
-    let str = arr[i].toString()
-    let newStr = str.slice(0, str.lastIndexOf('/'))
-    arrayPath.push(newStr)
-  }
-  let arrayPath2 = arrayPath;
-    for (let i = 0; i < arr.length; i++) {
-
-      let str = arrayPath[i].toString()
-      let newStr = str.slice(0, str.lastIndexOf('/'))
-      // console.log(newStr)
-      arrayPath2.push(newStr)
-    }
-  return arrayPath2;
-}
-// export const splitPath = (arr) => {
-//   // let result = [];
-//   let arrayPath = [];
-//   for (let i = 0; i < arr.length; i++) {
-//     let str = arr[i].toString()
-//     let newStr = str.slice(0, str.lastIndexOf('/'))
-//     arrayPath.push(newStr)
-//   }
-//   let arrayPath2 = arrayPath;
-//     for (let i = 0; i < arr.length; i++) {
-
-//       let str = arrayPath[i].toString()
-//       let newStr = str.slice(0, str.lastIndexOf('/'))
-//       // console.log(newStr)
-//       arrayPath2.push(newStr)
-//     }
-//   return arrayPath2;
-// }
