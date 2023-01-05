@@ -2,10 +2,11 @@ import Folder from "./components/Folder";
 import File from "./components/File";
 import { FOLDER_TYPE } from "./Constants";
 
+
 export const renderCurrentType = (data, expandedFolders = []) =>
   data.map(i =>
     i.type === FOLDER_TYPE ? (
-      expandedFolders.some(f => f.includes(i.name)) ? (
+      expandedFolders.some(f => f == `/${i.name}`) ? (
       <Folder key={JSON.stringify({ ...i, expandedFolders: expandedFolders })}
         name={i.name} children={i.children}
         expandedFolders={expandedFolders}
@@ -17,6 +18,7 @@ export const renderCurrentType = (data, expandedFolders = []) =>
         />) : null
     )
   );
+
 
 export const treeToMap = (data = [], path = '') => {
     let result = {};

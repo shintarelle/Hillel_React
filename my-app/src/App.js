@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { renderCurrentType, treeToMap, splitPath } from "./utils";
+import { renderCurrentType, treeToMap } from "./utils";
 import data from "./data.json";
 
 class App extends Component {
@@ -19,6 +19,9 @@ class App extends Component {
 
   }
   extendFolder = () => {
+    console.log('extendFolder', Object.entries(this.map)
+      .filter(([_, value]) => value.startsWith(this.state.text))
+      .map(([path]) => this.passToArr(path)).flat())
     return Object.entries(this.map)
       .filter(([_, value]) => value.startsWith(this.state.text))
       .map(([path]) => this.passToArr(path)).flat()

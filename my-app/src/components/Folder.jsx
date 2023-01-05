@@ -9,6 +9,7 @@ class Folder extends Component {
   }
 
   isOpenFolder = () => {
+    console.log('this.props.name', this.props.name);
     return this.props.expandedFolders.includes(`/${this.props.name}`)
   }
 
@@ -27,7 +28,7 @@ class Folder extends Component {
     <>
         <li onClick={this.handleToggle}>FOLDER {this.props.name}</li>
         {
-            this.state.isOpen? (
+            this.state.isOpen ? (
                 <ul>
                     {renderCurrentType(this.props.children, this.openNextFolders())}
                 </ul>
